@@ -1,0 +1,576 @@
+imgui                            = require 'imgui'
+samp                            = require 'samp.events'
+encoding                        = require 'encoding'
+encoding.default                    = 'CP1251'
+u8                            = encoding.UTF8
+active_menu                        = imgui.ImBool(false)
+local dlstatus = require('moonloader').download_status
+
+
+script_author("GUCCI")
+script_name("Taxi Helper")
+script_version("1.2")
+require "lib.moonloader"
+
+local inicfg = require 'inicfg'
+local font_flag = require('moonloader').font_flag
+local hook = require 'lib.samp.events'
+require 'lib.sampfuncs'
+local key = require 'vkeys'
+local memory = require "memory"
+
+local mainIni = inicfg.load({
+config =
+{
+Zvuk = false,
+Autoth = false,
+Chatzvuk = false,
+Chatspam = false,
+Block = false,
+Vixod = false,
+NoName = false,
+Proverka = false,
+Time = 2000,
+Baby = false,
+Push = false,
+Kick = false,
+Crash = false,
+Ktime = 0,
+Kcrash = 0,
+Waitm = 0,
+Mat = false,
+Dead = false,
+Waitdead = 0,
+Lesbi = false,
+state = false
+}
+}, "TaxiHelperMenu.luac")
+local zvuk = imgui.ImBool(mainIni.config.Zvuk)
+local proverka = imgui.ImBool(mainIni.config.Proverka)
+local vixod = imgui.ImBool(false)
+local mat = imgui.ImBool(mainIni.config.Mat)
+waitb = imgui.ImInt(mainIni.config.Time)
+waitk = imgui.ImInt(mainIni.config.Ktime)
+waitdead = imgui.ImInt(mainIni.config.Waitdead)
+kcrash = imgui.ImInt(mainIni.config.Kcrash)
+chatsms = imgui.ImBuffer(u8"Приветствую, спасибо что выбрали мое такси.")
+chatsms1 = imgui.ImBuffer(u8"Куда будем ехать?")
+chatsms2 = imgui.ImBuffer(u8"/me завел двигатель.")
+rand1 = imgui.ImBuffer(u8"/b конечно я тут")
+rand2 = imgui.ImBuffer(u8"/b Есть сомнения?")
+rand3 = imgui.ImBuffer(u8"/b естественно")
+block = mainIni.config.Block
+state = mainIni.config.Tema
+vixod = mainIni.config.Vixod
+NoName = mainIni.config.NoName
+local lesbi = imgui.ImBool(mainIni.config.Lesbi)
+kick = mainIni.config.Kick
+crash = mainIni.config.Crash
+waitm = imgui.ImInt(mainIni.config.Waitm)
+local chatzvuk = imgui.ImBool(mainIni.config.Chatzvuk)
+local chatspam = imgui.ImBool(mainIni.config.Chatspam)
+local baby = imgui.ImBool(mainIni.config.Baby)
+local dead = imgui.ImBool(mainIni.config.Dead)
+local push = imgui.ImBool(mainIni.config.Push)
+function update()
+  local fpath = os.getenv('TEMP') .. '\\testing_version.json' -- куда будет качаться наш файлик для сравнения версии
+  downloadUrlToFile('https://api.jsonbin.io/b/5e8b3ed3e583106bbe3325e2', fpath, function(id, status, p1, p2) -- ссылку на ваш гитхаб где есть строчки которые я ввёл в теме или любой другой сайт
+    if status == dlstatus.STATUS_ENDDOWNLOADDATA then
+    local f = io.open(fpath, 'r') -- открывает файл
+    if f then
+      local info = decodeJson(f:read('*a')) -- читает
+      updatelink = info.updateurl
+      if info and info.latest then
+        version = tonumber(info.latest) -- переводит версию в число
+        if version > tonumber(thisScript().version) then -- если версия больше чем версия установленная то...
+          lua_thread.create(goupdate) -- апдейт
+        else -- если меньше, то
+          update = false -- не даём обновиться
+          sampAddChatMessage(('[Testing]: У вас и так последняя версия! Обновление отменено'), color)
+        end
+      end
+    end
+  end
+end)
+end
+function hook.onServerMessage(color, text)
+  if chatspam.v and activated then
+if text:find("вызывает такси") then
+lua_thread.create(function()
+sampAddChatMessage("[AutoPaz] Начал ловить пассажиров", 0x0099FF)
+sampSendChat("/gotaxi 0")
+sampSendChat("/gotaxi 1")
+sampSendChat("/gotaxi 2")
+sampSendChat("/gotaxi 3")
+sampSendChat("/gotaxi 4")
+sampSendChat("/gotaxi 5")
+sampSendChat("/gotaxi 6")
+sampSendChat("/gotaxi 7")
+sampSendChat("/gotaxi 8")
+sampSendChat("/gotaxi 9")
+sampSendChat("/gotaxi 10")
+sampSendChat("/gotaxi 11")
+sampSendChat("/gotaxi 12")
+sampSendChat("/gotaxi 13")
+sampSendChat("/gotaxi 14")
+sampSendChat("/gotaxi 15")
+sampSendChat("/gotaxi 16")
+sampSendChat("/gotaxi 17")
+sampSendChat("/gotaxi 18")
+sampSendChat("/gotaxi 19")
+sampSendChat("/gotaxi 20")
+sampSendChat("/gotaxi 21")
+sampSendChat("/gotaxi 22")
+sampSendChat("/gotaxi 23")
+sampSendChat("/gotaxi 24")
+sampSendChat("/gotaxi 25")
+sampSendChat("/gotaxi 26")
+sampSendChat("/gotaxi 27")
+sampSendChat("/gotaxi 28")
+sampSendChat("/gotaxi 29")
+sampSendChat("/gotaxi 30")
+sampSendChat("/gotaxi 40")
+sampSendChat("/gotaxi 44")
+sampSendChat("/gotaxi 55")
+sampSendChat("/gotaxi 143")
+sampSendChat("/gotaxi 999")
+sampSendChat("/gotaxi 124")
+sampSendChat("/gotaxi 155")
+sampSendChat("/gotaxi 136")
+sampSendChat("/gotaxi 173")
+sampSendChat("/gotaxi 151")
+sampSendChat("/gotaxi 121")
+sampSendChat("/gotaxi 333")
+sampSendChat("/gotaxi 273")
+sampSendChat("/gotaxi 228")
+sampSendChat("/gotaxi 312")
+sampSendChat("/gotaxi 821")
+sampSendChat("/gotaxi 24")
+sampSendChat("/gotaxi 415")
+sampSendChat("/gotaxi 142")
+sampSendChat("/gotaxi 217")
+sampSendChat("/gotaxi 248")
+sampSendChat("/gotaxi 239")
+sampSendChat("/gotaxi 302")
+sampSendChat("/gotaxi 440")
+sampSendChat("/gotaxi 943")
+sampSendChat("/gotaxi 252")
+sampSendChat("/gotaxi 143")
+sampSendChat("/gotaxi 439")
+sampSendChat("/gotaxi 524")
+sampSendChat("/gotaxi 155")
+sampSendChat("/gotaxi 436")
+sampSendChat("/gotaxi 173")
+sampSendChat("/gotaxi 151")
+sampSendChat("/gotaxi 835")
+sampSendChat("/gotaxi 443")
+sampSendChat("/gotaxi 333")
+wait (1000)
+sampAddChatMessage("[AutoPaz] Закончил ловить пассажиров", 0x0099FF)
+end)
+  end
+end
+  if chatzvuk.v and activated then 
+if text:find("чтобы начать работу и установить тариф.") then
+sampAddChatMessage("[Warning] Вы сели за руль такси ", 0x0099FF)
+sampAddChatMessage("[Warning] Уже готов к работе! ", 0x0099FF) 
+end
+end
+  if push and activated then
+if text:find("сел к вам в такси.") then
+sampAddChatMessage("[AutoTH] Отыгровка об приветствии", 0x0099FF)
+sampProcessChatInput('/prv') 
+end
+end
+  if push and activated then
+if text:find("Игрок выбрал пункт") then
+lua_thread.create(function()
+wait(2000)
+sampAddChatMessage("[AutoTH] Отыгровка об выезде", 0x0099FF) 
+wait(100)
+sampProcessChatInput('/ezd') 
+end)
+end 
+end
+  if push and activated then
+if text:find("передал вам") then
+lua_thread.create(function()
+sampAddChatMessage("[AutoTH] Отыгровка спасибо за чай", 0x0099FF) 
+wait(100)
+sampProcessChatInput('/sps') 
+end)
+end
+end
+  if push and activated then
+if text:find("Он отмечен на карте") then
+lua_thread.create(function()
+wait(2000)
+sampAddChatMessage("[AutoTH] Отыгровка об выезде", 0x0099FF) 
+wait(100)
+sampProcessChatInput('/ezd') 
+end)
+end 
+end
+  if push and activated then
+if text:find("Навык таксиста") then
+lua_thread.create(function()
+wait(200)
+sampAddChatMessage("[Warning] Сделайте тариф на 100+ что-бы получать навык!", 0x0099FF) 
+sampProcessChatInput('/fnl') 
+end)
+end
+end
+end
+function apply_custom_style()
+imgui.SwitchContext()
+local style = imgui.GetStyle()
+local colors = style.Colors
+local clr = imgui.Col
+local ImVec4 = imgui.ImVec4
+
+style.Alpha = 1.0
+style.ChildWindowRounding = 3
+style.WindowRounding = 3
+style.GrabRounding = 1
+style.GrabMinSize = 20
+style.FrameRounding = 3
+
+colors[clr.Text] = ImVec4(0.00, 1.00, 1.00, 1.00)
+colors[clr.TextDisabled] = ImVec4(0.00, 0.40, 0.41, 1.00)
+colors[clr.WindowBg] = ImVec4(0.00, 0.00, 0.00, 1.00)
+colors[clr.ChildWindowBg] = ImVec4(0.00, 0.00, 0.00, 0.00)
+colors[clr.Border] = ImVec4(0.00, 1.00, 1.00, 0.65)
+colors[clr.BorderShadow] = ImVec4(0.00, 0.00, 0.00, 0.00)
+colors[clr.FrameBg] = ImVec4(0.44, 0.80, 0.80, 0.18)
+colors[clr.FrameBgHovered] = ImVec4(0.44, 0.80, 0.80, 0.27)
+colors[clr.FrameBgActive] = ImVec4(0.44, 0.81, 0.86, 0.66)
+colors[clr.TitleBg] = ImVec4(0.14, 0.18, 0.21, 0.73)
+colors[clr.TitleBgCollapsed] = ImVec4(0.00, 0.00, 0.00, 0.54)
+colors[clr.TitleBgActive] = ImVec4(0.00, 1.00, 1.00, 0.27)
+colors[clr.MenuBarBg] = ImVec4(0.00, 0.00, 0.00, 0.20)
+colors[clr.ScrollbarBg] = ImVec4(0.22, 0.29, 0.30, 0.71)
+colors[clr.ScrollbarGrab] = ImVec4(0.00, 1.00, 1.00, 0.44)
+colors[clr.ScrollbarGrabHovered] = ImVec4(0.00, 1.00, 1.00, 0.74)
+colors[clr.ScrollbarGrabActive] = ImVec4(0.00, 1.00, 1.00, 1.00)
+colors[clr.ComboBg] = ImVec4(0.16, 0.24, 0.22, 0.60)
+colors[clr.CheckMark] = ImVec4(0.00, 1.00, 1.00, 0.68)
+colors[clr.SliderGrab] = ImVec4(0.00, 1.00, 1.00, 0.36)
+colors[clr.SliderGrabActive] = ImVec4(0.00, 1.00, 1.00, 0.76)
+colors[clr.Button] = ImVec4(0.00, 0.65, 0.65, 0.46)
+colors[clr.ButtonHovered] = ImVec4(0.01, 1.00, 1.00, 0.43)
+colors[clr.ButtonActive] = ImVec4(0.00, 1.00, 1.00, 0.62)
+colors[clr.Header] = ImVec4(0.00, 1.00, 1.00, 0.33)
+colors[clr.HeaderHovered] = ImVec4(0.00, 1.00, 1.00, 0.42)
+colors[clr.HeaderActive] = ImVec4(0.00, 1.00, 1.00, 0.54)
+colors[clr.ResizeGrip] = ImVec4(0.00, 1.00, 1.00, 0.54)
+colors[clr.ResizeGripHovered] = ImVec4(0.00, 1.00, 1.00, 0.74)
+colors[clr.ResizeGripActive] = ImVec4(0.00, 1.00, 1.00, 1.00)
+colors[clr.CloseButton] = ImVec4(0.00, 0.78, 0.78, 0.35)
+colors[clr.CloseButtonHovered] = ImVec4(0.00, 0.78, 0.78, 0.47)
+colors[clr.CloseButtonActive] = ImVec4(0.00, 0.78, 0.78, 1.00)
+colors[clr.PlotLines] = ImVec4(0.00, 1.00, 1.00, 1.00)
+colors[clr.PlotLinesHovered] = ImVec4(0.00, 1.00, 1.00, 1.00)
+colors[clr.PlotHistogram] = ImVec4(0.00, 1.00, 1.00, 1.00)
+colors[clr.PlotHistogramHovered] = ImVec4(0.00, 1.00, 1.00, 1.00)
+colors[clr.TextSelectedBg] = ImVec4(0.00, 1.00, 1.00, 0.22)
+colors[clr.ModalWindowDarkening] = ImVec4(0.04, 0.10, 0.09, 0.51)
+end
+apply_custom_style()
+function imgui.TextQuestion(text)
+    imgui.TextDisabled("(?)")
+    if imgui.IsItemHovered() then
+        imgui.BeginTooltip()
+        imgui.PushTextWrapPos(450)
+        imgui.TextUnformatted(text)
+        imgui.PopTextWrapPos()
+        imgui.EndTooltip()
+    end
+end
+function imgui.OnDrawFrame()
+    local x, y = getScreenResolution()
+    if active_menu.v then
+        imgui.LockPlayer = true
+        imgui.SetNextWindowPos(imgui.ImVec2(x/2, y/2), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
+        imgui.SetNextWindowSize(imgui.ImVec2(900, 500), imgui.Cond.FirstUseEver)
+        imgui.Begin(u8('Настройи'), active_menu)
+        imgui.BeginChild('left pane', imgui.ImVec2(150, 0), true)
+        if not selected then selected = 1 end
+        if imgui.Selectable(u8('Основное'), false) then selected = 1 end
+		if imgui.Selectable(u8('fd'), false) then selected = 2 end
+        imgui.EndChild()
+        imgui.SameLine()
+        imgui.BeginGroup()
+		local main_window_state = imgui.ImBool(false)
+		end
+       if selected == 2 then
+	 		  		  imgui.Text(u8'СКОРО') -- простой текст внутри этого окна
+end			
+    imgui.Text(u8"В данный момент скрипт: ")
+    imgui.SameLine()
+    if activated then
+    imgui.TextColored(imgui.ImVec4(0, 143, 0, 1), u8"Включен")
+  else
+    imgui.TextColored(imgui.ImVec4(58, 81, 194, 1), u8"Выключен")
+  end	  
+       if selected == 1 then
+    if imgui.Button(u8"Вкл/Выкл скрипт") then
+      activated = not activated
+      if activated then
+ sampAddChatMessage("[Taxi Helper] Включился!", 0x0099FF)
+    else
+sampAddChatMessage("[Taxi Helper] Выключился!", 0x0099FF)
+      end
+	  end
+
+
+	      if imgui.Button(u8'Сохранить настройки',imgui.ImVec2(140, 30)) then
+			mainIni.config.Zvuk = zvuk.v
+			mainIni.config.Chatzvuk = chatzvuk.v
+			mainIni.config.Chatspam = chatspam.v
+			mainIni.config.Block = block
+			mainIni.config.Vixod = vixod
+		  mainIni.config.NoName = NoName
+      mainIni.config.Proverka = proverka.v
+      mainIni.config.Time = waitb.v
+      mainIni.config.Baby = baby.v
+      mainIni.config.Push = push.v
+      mainIni.config.Kick = kick
+      mainIni.config.Crash = crash
+      mainIni.config.Ktime = waitk.v
+      mainIni.config.Kcrash = kcrash.v
+			mainIni.config.Waitm = waitm.v
+			mainIni.config.Mat = mat.v
+			mainIni.config.Dead = dead.v
+			mainIni.config.Waitdead = waitdead.v
+			mainIni.config.Lesbi = lesbi.v
+			mainIni.config.Tema = state
+			
+			inicfg.save(mainIni, 'TaxiHelperMenu.luac.ini')
+sampAddChatMessage("[Taxi Helper] Настройки полностью сохранены!", 0x0099FF)
+sampAddChatMessage("[Taxi Helper] Настройки полностью сохранены!", 0x0099FF)
+sampAddChatMessage("[Taxi Helper] Настройки полностью сохранены!", 0x0099FF)
+    end    
+	imgui.Checkbox(u8"AutoPaz", chatspam)
+    imgui.SameLine()
+    imgui.TextQuestion(u8'Ловля пассажиров, а тоесть /gotaxi ID')
+    imgui.Checkbox(u8"Warning", chatzvuk)
+    imgui.SameLine()
+    imgui.TextQuestion(u8'Оповещение, когда игрок сел, вышел, выбрал и тд')
+    imgui.Checkbox(u8"AutoTH", push)
+    imgui.SameLine()
+    imgui.TextQuestion(u8'Когда игрок сел в такси/Дал чай/выбрал договор или др. будет автоматически выводить сообщение от вашего лица')
+    imgui.Checkbox(u8"RPTAXI [СКОРО]", proverka)
+    imgui.SameLine()
+    imgui.TextQuestion(u8'Вы будите отыгрывать рп, /me /do')	
+				  	      	 if imgui.Button(u8'Настройки речи') then
+          sdsddsf = not sdsddsf
+         end
+         if sdsddsf then
+		 imgui.TextColored(imgui.ImVec4(1.0, 0.0, 0.0, 1.0),u8'Не открывайте больше 1, настраивайте по 1 ведь в имгуй есть баг с ними.')
+		  if imgui.Button(u8'Приветствие') then
+		            ukuhu = not ukuhu
+         end
+         if ukuhu then
+		   if imgui.Button(u8'=== 1 ===') then 							
+          gffghfg = not gffghfg
+         end
+         if gffghfg then
+							     imgui.InputText(u8"Приветствие", chatsms)
+								  end	
+								  if imgui.Button(u8'=== 2 ===') then
+								            rtrfd = not rtrfd
+         end
+         if rtrfd then
+								 imgui.InputText(u8"Приветствие", chatsms1)
+								  end	
+								  if imgui.Button(u8'=== 3 ===') then
+								            sdfsdfs = not sdfsdfs
+         end
+         if sdfsdfs then
+								 imgui.InputText(u8"Приветствие", chatsms2)
+								  end	
+								 end
+								 end
+	      	 if imgui.Button(u8'Команды/Функции') then
+			           dfssdf = not dfssdf
+         end
+         if dfssdf then
+		  		  imgui.Text(u8'Команды') -- простой текст внутри этого окна
+                  imgui.Text(u8'/prv - Приветствие таксиста') -- простой текст внутри этого окна
+				  imgui.SameLine()
+                  imgui.TextQuestion(u8'На NUMPAD 1 либо в быстром меню (X)')
+				  imgui.Text(u8'/ezd - Начало при выезде ') -- простой текст внутри этого окна
+				  imgui.SameLine()
+                  imgui.TextQuestion(u8'На NUMPAD 2 либо в быстром меню (X)')
+				  imgui.Text(u8'/chy - Попросишь чая')
+				  imgui.SameLine()
+                  imgui.TextQuestion(u8'На NUMPAD 3 либо в быстром меню (X)')
+				  imgui.Text(u8'/sps - Благодарность за чай')
+				  imgui.SameLine()
+                  imgui.TextQuestion(u8'На NUMPAD 4 либо в быстром меню (X)')
+				  imgui.Text(u8'/fnl - Финалка когда приехали')
+				  imgui.SameLine()
+                  imgui.TextQuestion(u8'На NUMPAD 5 либо в быстром меню (X)')
+				  imgui.Text(u8'Функции')                  
+				  imgui.Text(u8'На данный момент есть крутые функции которые будут дополнятся')
+				  				  imgui.Text(u8'[AutoPaz] - Ловля пассажиров, а тоесть /gotaxi ID ')
+				  imgui.Text(u8'[AutoTH] - Когда игрок сел в такси/Дал чай будет автоматически выводить сообщение от вашего лица')
+				  imgui.Text(u8'[Warning] - Оповещение, когда игрок сел, вышел, выбрал и тд.')
+			      imgui.TextColored(imgui.ImVec4(1.0, 0.0, 0.0, 1.0),u8'[RPTAXI] - Такси будет отыгрывать рп можно включить в настройках [СКОРО]')
+				  imgui.TextColored(imgui.ImVec4(1.0, 0.0, 0.0, 1.0),u8'[TMoney] - Сколько вы получили за такси [СКОРО]')
+				  imgui.TextColored(imgui.ImVec4(1.0, 0.0, 0.0, 1.0),u8'[AutoMeizer] - Такси сам едет по точке на карте [CHEAT СКОРО]')
+				  end							 
+	     if imgui.Button(u8'Очистить чат') then
+		 sampProcessChatInput('/toster')
+		 sampProcessChatInput('/toster')
+		 sampProcessChatInput('/toster')
+		 end
+         if imgui.Button(u8'Информация') then
+		 
+          ezda = not ezda
+         end
+         if ezda then
+          if imgui.Button(u8'О СКРИТПЕ') then
+		  scrit = not scrit
+		  end
+		  if scrit then
+		  		  imgui.Text(u8'Версия: 1.2 ') -- простой текст внутри этого окна
+                  imgui.Text(u8'Автор: GUCCI') -- простой текст внутри этого окна
+				  imgui.Text(u8'Потдерживается: Да ') -- простой текст внутри этого окна
+				  imgui.SameLine()
+                  imgui.TextQuestion(u8'Пудут ли обновы, скрипт разрабатывается')
+				  imgui.Text(u8'Описание: Скрипт сделан для таксистов, легкий и простой скриптик')
+				  imgui.Text(u8'Дарова, все баги писать на тему бластхак.') 
+   end	 
+    	 if imgui.Button(u8'Лучший сервер') then
+		           xuy = not xuy
+         end
+         if xuy then
+		 imgui.Text(u8'Arizona SaintRose') 	
+		 		  imgui.SameLine()
+                  imgui.TextQuestion(u8'185.169.134.5:7777')
+				  		 imgui.Text(u8'Промокод: #izimoney') 	
+		 		  imgui.SameLine()
+                  imgui.TextQuestion(u8'/mm - 12')
+				  		 imgui.Text(u8'Ник при регестрации: Jeff_Saint') 	
+		 		  imgui.SameLine()
+                  imgui.TextQuestion(u8'Вводи и получи 200.000$ при 5 лвл')
+				  
+
+	  end		  
+end		 
+
+		
+        -- ...
+        imgui.EndGroup()
+        imgui.End()
+    end
+end 	
+function prv(params)
+lua_thread.create(function()
+sampSendChat("Приветствую, спасибо что выбрали мое такси. ")
+wait(1900)
+sampSendChat("Куда будем ехать?")
+wait(1000)
+sampSendChat("/me завел двигатель.")
+end)
+end
+function chy(params)
+lua_thread.create(function()
+sampSendChat("Я очень мало зарабатую на этой работе. ")
+wait(1500)
+sampSendChat("Сам видишь очень низкий тариф.")
+wait(1000)
+sampSendChat("Может дашь денег на чай?")
+end)
+end
+function sps(params)
+lua_thread.create(function()
+sampSendChat("Очень тебе благодарен. ")
+wait(1000)
+sampSendChat("Спасибо за твою щедрость.")
+end)
+end
+function fnl(params)
+lua_thread.create(function()
+sampSendChat("Мы приехали в место назначение. ")
+wait(1100)
+sampSendChat("Спасибо что выбрали именно мое такси. Удачи вам.")
+end)
+end
+function ezd(params)
+lua_thread.create(function()
+sampSendChat("Хорошо, будем выезжать! ")
+wait(1000)
+sampSendChat("Пристегни ремни, а так-же буду рад чаю.")
+end)
+end
+function tosterCallBack(params)
+    sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)
+	sampAddChatMessage("CLEAR", -1)    
+	sampAddChatMessage("CLEAR", -1)
+	
+end
+
+
+function main()
+    while not isSampAvailable() do wait(0) end
+    sampAddChatMessage("[Taxi Helper] Скрипт загружен", 0x0099FF) -- sampAddChatMessage юзай после проверки запуска samp и тут не нужно ставить -1 если поставил цвета, -1 это белый цвет
+    wait(2000)
+    sampAddChatMessage("[Taxi Helper] Основное меню - /th ", 0x0099FF)
+	sampAddChatMessage("[Taxi Helper] Быстрое меню - X [Ч] ", 0x0099FF)
+    sampAddChatMessage("[Taxi Helper] Версия: V.1.2", 0x0099FF)
+    sampRegisterChatCommand('th', function() active_menu.v = not active_menu.v end)
+    sampRegisterChatCommand("toster", tosterCallBack) -- Регистрируем ДО бесконечного цикла.
+	sampRegisterChatCommand("prv", prv) -- Регистрируем ДО бесконечного цикла.
+	sampRegisterChatCommand("chy", chy) -- Регистрируем ДО бесконечного цикла.
+    sampRegisterChatCommand("ezd", ezd) -- Регистрируем ДО бесконечного цикла.
+    sampRegisterChatCommand("sps", sps) -- Регистрируем ДО бесконечного цикла.
+	sampRegisterChatCommand("fnl", fnl) -- Регистрируем ДО бесконечного цикла.
+    while true do
+        wait(0)
+        imgui.Process = active_menu.v
+        if wasKeyPressed(VK_F2) then
+            sampSetChatInputEnabled(false)
+        elseif wasKeyPressed(VK_NUMPAD1) then
+    sampSendChat(u8:decode(chatsms.v))
+	    wait (waitb.v)
+		    sampSendChat(u8:decode(chatsms1.v))
+				    wait (waitb.v)
+			    sampSendChat(u8:decode(chatsms2.v))
+        elseif wasKeyPressed(VK_NUMPAD3) then
+		 sampProcessChatInput('/chy')
+        elseif wasKeyPressed(VK_NUMPAD2) then
+		 sampProcessChatInput('/ezd')
+		elseif wasKeyPressed(VK_NUMPAD4) then
+		 sampProcessChatInput('/sps')
+		elseif wasKeyPressed(VK_NUMPAD5) then
+		 sampProcessChatInput('/fnl')
+end
+end 
+end
+--скачивание актуальной версии
+function goupdate()
+sampAddChatMessage(('[Testing]: Обнаружено обновление. AutoReload может конфликтовать. Обновляюсь...'), color)
+sampAddChatMessage(('[Testing]: Текущая версия: '..thisScript().version..". Новая версия: "..version), color)
+wait(300)
+downloadUrlToFile(updatelink, thisScript().path, function(id3, status1, p13, p23) -- качает ваш файлик с latest version
+  if status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
+  sampAddChatMessage(('[Testing]: Обновление завершено!'), color)
+  thisScript():reload()
+end
+end)
+end
